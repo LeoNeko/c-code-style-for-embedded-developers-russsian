@@ -29,10 +29,10 @@
 
 Здесь перечислены наиболее очевидные и важные общие правила. Внимательно прочитайте их, прежде чем переходить к другим главам.
 
-- Используй стандарт C99.
+- Используй стандарт `C99`.
 - Не используй табуляции, вместо этого используй пробелы.
-- Используй 4 пробела на каждый уровень доступа (область видимости).
-- Используй 1 пробел между ключевым словом и открывающей скобкой.
+- Используй `4` пробела на каждый уровень доступа (область видимости).
+- Используй `1` пробел между ключевым словом и открывающей скобкой.
 
 ```c
 /* ПРАВИЛЬНО */
@@ -56,8 +56,8 @@ int32_t a = sum (4, 3);            /* ПРАВИЛЬНО  */
 int32_t a = sum(4, 3);             /* НЕ ПРАВИЛЬНО */
 ```
 
-- НИКОГДА не используйте __ или _ в начале для переменных/функций/макросов/типов данных. Это зарезервировано языком С для себя.
-    - Предпочтительно использовать префикс prv_ для функций, строго зависящих от модуля.
+- НИКОГДА не используйте `__` или `_` в начале для переменных/функций/макросов/типов данных. Это зарезервировано языком С для себя.
+    - Предпочтительно использовать префикс `prv_` для функций, строго зависящих от модуля.
 - Используй только нижний регистр для переменных/функций/макросов с опциональным нижнем подчеркиванием `_`.
 - Для пользовательских типво данных предлагается его нарочитое выделение `MODBUS_StatusTypeDef`. Таким образом подчеркивается, что тип данных не относится к стандартным типам какой-либо библиотеки, а также помогает визуально зацепиться глазу за него.
 - Открывайте скобку всегда на той же строчке, что и ключевые слова (`for`, `while`, `do`, `switch`, `if`, ...). Это сэкономит строчки кода.
@@ -953,44 +953,44 @@ if (a) {                    /* If a is true */
 
 ## Документация
 
-Documented code allows doxygen to parse and general html/pdf/latex output, thus it is very important to do it properly.
+Документирование doxygen переобразуется в html/pdf/latex, поэтому очень важно сделать это правильно (Но чаще всего всем всё равно на это. Вы не будете читать кривущие html странички. Проще и быстрее сразу приступить к изучению кода, но для этого тоже надо правильно задокументировать). 
 
-- Use doxygen-enabled documentation style for `variables`, `functions` and `structures/enumerations`
-- Always use `\` for doxygen, do not use `@`
-- Always use `5x4` spaces (`5` tabs) offset from beginning of line for text
+- Используйте doxygen-документацию для variables, functions и structures/enumerations.
+- Всегда используйте `\` для doxygen, не используйте `@`. (я счита. это правило не жестким и использую `@` часто. Это хорошо совпадает с документированием стандартных бибилиотек и не выбивается из стиля).
+- Всегда используйте `5x4` пробела (`5` табов) для отступа для написания текста.
 ```c
 /**
- * \brief           Holds pointer to first entry in linked list
- *                  Beginning of this text is 5 tabs (20 spaces) from beginning of line
- */
+ * \brief           Текст должен начинаться здесь.
+ *                
+ */                    
 static
 type_t* list;
 ```
 
-- Every structure/enumeration member must include documentation
-- Use `12x4 spaces` offset for beginning of comment
+- Каждая структура/энумератор должен быть описан в документации.
+- Используйте `12x4 отступ` для начала комментаирования (это правило также не советую жестко выполнять. Длинна строчки кода может быть различной. Тут больше советую смотреть на выравнивание стоблца комментариев, чем на правильный "отступ").
 ```c
 /**
  * \brief           Это структура описывающая точку.
- * \note            This structure is used to calculate all point
- *                      related stuff
+ * \note            Эта структура используется для расчета всех вещей, связанных с точками.
+ *                      
  */
 typedef struct {
-    int32_t x;                                  /*!< X координата точки */
-    int32_t y;                                  /*!< Y координата точки */
-    int32_t size;                               /*!< Размер точки.
-                                                    Если комментарий слишком большой, 
-                                                    вы можете перейти на новую строчку. */
+    int32_t x;      /*!< X координата точки */
+    int32_t y;      /*!< Y координата точки */
+    int32_t size;   /*!< Размер точки.
+                         Если комментарий слишком большой, 
+                         вы можете перейти на новую строчку. */
 } point_t;
 
 /**
- * \brief           Point color enumeration
+ * \brief           Энумератор цвета точки.
  */
 typedef enum {
-    COLOR_RED,                                  /*!< Red color. This comment has 12x4
-                                                    spaces offset from beginning of line */
-    COLOR_GREEN,                                /*!< Green color */
-    COLOR_BLUE,                                 /*!< Blue color */
+    COLOR_RED,      /*!< Red color. This comment has 12x4
+                         spaces offset from beginning of line */
+    COLOR_GREEN,    /*!< Green color */
+    COLOR_BLUE,     /*!< Blue color */
 } point_color_t;
 ```
 
@@ -1008,11 +1008,11 @@ typedef enum {
  * \param[in]       b: Второе число
  * \return          Сумма `2` переданных чисел
  */
-int32_t sum(int32_t a, int32_t b);
+int32_t sum (int32_t a, int32_t b);
 
 
 /* file.c ... */
-int32_t sum(int32_t a, int32_t b) {
+int32_t sum (int32_t a, int32_t b) {
     return a + b;
 }
 
@@ -1023,8 +1023,7 @@ int32_t sum(int32_t a, int32_t b) {
  * \param[in]       b: Второе число.
  * \param[out]      result: Выходная переменная, которая используется для получения результата из функции.
  */
-void
-void_sum(int32_t a, int32_t b, int32_t* result) {
+void void_sum (int32_t a, int32_t b, int32_t* result) {
     *result = a + b;
 }
 ```
@@ -1035,43 +1034,41 @@ void_sum(int32_t a, int32_t b, int32_t* result) {
  * \brief           Мой энумератор.
  */
 typedef enum {
-    MY_ERR,                                     /*!< Ошибочное значение. */
-    MY_OK                                       /*!< Действующее значение. */
+    MY_ERR,         /*!< Ошибочное значение. */
+    MY_OK           /*!< Действующее значение. */
 } my_enum_t;
 
 /**
  * \brief           Проверяет какое-нибудь значение.
  * \return          \ref MY_OK если удачно, иначе \ref my_enum_t
  */
-my_enum_t
-check_value(void) {
+my_enum_t check_value (void) {
     return MY_OK;
 }
 ```
 
-- Use notation (\`NULL\` => `NULL`) for constants or numbers
+- Используйте нотацию (\`NULL\` => `NULL`) для констант или чисел.
 ```c
 /**
- * \brief           Get data from input array
- * \param[in]       in: Input data
- * \return          Pointer to output data on success, `NULL` otherwise
+ * \brief           Получить данные из входного массива.
+ * \param[in]       in: Входные данны.
+ * \return          Указатель для вывода данных в случае успеха, `NULL` в противном случае.
  */
-const void *
-get_data(const void* in) {
+const void* get_data (const void* in) {
     return in;
 }
 ```
 
-- Documentation for macros must include `hideinitializer` doxygen command
+- Документация для макросов должна включать команду doxygen `hideinitializer`:
 ```c
 /**
- * \brief           Get minimal value between `x` and `y`
- * \param[in]       x: First value
- * \param[in]       y: Second value
- * \return          Minimal value between `x` and `y`
+ * \brief           Получить минимальное значение между `x` и `y`.
+ * \param[in]       x: Первое значение.
+ * \param[in]       y: Второе значение.
+ * \return          Минимальное значение из `x` и `y`
  * \hideinitializer
  */
-#define MIN(x, y)       ((x) < (y) ? (x) : (y))
+#define MIN (x, y)       ((x) < (y) ? (x) : (y))
 ```
 
 ## Заголовочные и исходного кода файлы
@@ -1089,7 +1086,7 @@ get_data(const void* in) {
 - Также следует оставлять одну пустую строку в конце файла.
 
 - Каждый файл (*header* or *source*) должен включать лицензию (открывающий комментарий содержит один символ звезды)
-- Use the same license as already used by project/library
+- Используйте ту же лицензию, которая уже используется проектом/библиотекой.
 ```c
 /**
  * \file            template.h
