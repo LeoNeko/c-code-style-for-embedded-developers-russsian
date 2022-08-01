@@ -2,7 +2,7 @@
 
 Этот документ является форком репозитория пользователя `Tilen MAJERLE` с исправлениями и дополнениями `LeoNeko`.
 
-## Table of Contents
+## Содержание документа
 
   - [The single most important rule](#the-single-most-important-rule)
   - [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
@@ -16,7 +16,7 @@
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Документация](#документация)
   - [Заголовочные и исходного кода файлы](#заголовочные-и-исходного-кода-файлы)
-  - [Стиль наименования файлов](#cтиль-наименования-файлов)
+  - [Стиль наименования файлов](#стиль-наименования-файлов)
 
 ## The single most important rule
 
