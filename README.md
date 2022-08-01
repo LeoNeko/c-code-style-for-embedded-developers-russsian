@@ -1,6 +1,7 @@
-# Recommended C style and coding rules
+# Рекомендуемый стиль и правила написания кода на языке С для разработчиков встроенных систем
 
 This document describes C code style used by Tilen MAJERLE in his projects and libraries.
+Этот документ основан на форке репозитория пользователя `Tilen MAJERLE` с исправлениями и дополнениями `LeoNeko`.
 
 ## Table of Contents
 
