@@ -5,7 +5,6 @@
 ## Содержание документа
 
   - [Самое важное правило](#самое-важное-правило)
-  - [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
   - [Главные правила](#главные-правила)
   - [Comments](#comments)
   - [Функции](#Функции)
@@ -30,95 +29,101 @@
 
 Здесь перечислены наиболее очевидные и важные общие правила. Внимательно прочитайте их, прежде чем переходить к другим главам.
 
-- Используй стандарт C99
-- Не используйте табуляции, вместо этого используйте пробелы
-- Используйте 4 пробел на каждый уровень доступа (область видимости)
-- Используйте 1 пробел между ключевым словом и открывающей скобкой
+- Используй стандарт C99.
+- Не используй табуляции, вместо этого используй пробелы.
+- Используй 4 пробела на каждый уровень доступа (область видимости).
+- Используй 1 пробел между ключевым словом и открывающей скобкой.
 
 ```c
-/* OK */
+/* ПРАВИЛЬНО */
 if (condition)
 while (condition)
 for (init; condition; step)
 do {} while (condition)
 
-/* Wrong */
+/* НЕ ПРАВИЛЬНО */
 if(condition)
 while(condition)
 for(init;condition;step)
 do {} while(condition)
 ```
 
-- Do not use space between function name and opening bracket
+- Я рекомендую использовать пробел между именем функции и открывающей скобкой. Это помогает физуально выделить имя функции в потоке текста и сделать на ней акцент, даже без подсветки (в оригинале авор советует наоборот). Также это хорошо сочетается с другими правилами по стилю кода.
+- Всегда выравнивайте свой код по линии операторов, имен переменных, комментариев и т.д. Это также упрощает восприятие.
+
 ```c
-int32_t a = sum(4, 3);              /* OK */
-int32_t a = sum (4, 3);             /* Wrong */
+int32_t a = sum (4, 3);            /* ПРАВИЛЬНО  */
+int32_t a = sum(4, 3);             /* НЕ ПРАВИЛЬНО */
 ```
 
-- Never use `__` or `_` prefix for variables/functions/macros/types. This is reserved for C language itself
-    - Prefer `prv_` name prefix for strictly module-private functions
-- Use only lowercase characters for variables/functions/macros/types with optional underscore `_` char
-- Opening curly bracket is always at the same line as keyword (`for`, `while`, `do`, `switch`, `if`, ...)
+- НИКОГДА не используйте __ или _ в начале для переменных/функций/макросов/типов данных. Это зарезервировано языком С для себя.
+    - Предпочтительно использовать префикс prv_ для функций, строго зависящих от модуля.
+- Используй только нижний регистр для переменных/функций/макросов с опциональным нижнем подчеркиванием `_`.
+- Для пользовательских типво данных предлагается его нарочитое выделение `MODBUS_StatusTypeDef`. Таким образом подчеркивается, что тип данных не относится к стандартным типам какой-либо библиотеки, а также помогает визуально зацепиться глазу за него.
+- Открывайте скобку всегда на той же строчке, что и ключевые слова (`for`, `while`, `do`, `switch`, `if`, ...). Это сэкономит строчки кода.
 ```c
 size_t i;
-for (i = 0; i < 5; ++i) {           /* OK */
+for (i = 0; i < 5; ++i) {           /* ПРАВИЛЬНО */
 }
-for (i = 0; i < 5; ++i){            /* Wrong */
+
+for (i = 0; i < 5; ++i){            /* НЕ ПРАВИЛЬНО */
 }
-for (i = 0; i < 5; ++i)             /* Wrong */
+
+for (i = 0; i < 5; ++i)             /* НЕ ПРАВИЛЬНО */
 {
 }
 ```
 
-- Use single space before and after comparison and assignment operators
+- Используйте один пробел до и после операторов сравнения и присваивания. Тоже самое и для битовых операций.
 ```c
 int32_t a;
-a = 3 + 4;              /* OK */
-for (a = 0; a < 5; ++a) /* OK */
-a=3+4;                  /* Wrong */
-a = 3+4;                /* Wrong */
-for (a=0;a<5;++a)       /* Wrong */
+a = 3 + 4;              /* ПРАВИЛЬНО */
+for (a = 0; a < 5; ++a) /* ПРАВИЛЬНО */
+a = (spr & 0x80);       /* ПРАВИЛЬНО */
+a=3+4;                  /* НЕ ПРАВИЛЬНО */
+a = 3+4;                /* НЕ ПРАВИЛЬНО */
+for (a=0;a<5;++a)       /* НЕ ПРАВИЛЬНО */
 ```
 
-- Use single space after every comma
+- Используйте один пробел после каждой запятой:
 ```c
-func_name(5, 4);        /* OK */
-func_name(4,3);         /* Wrong */
+func_name(5, 4);        /* ПРАВИЛЬНО */
+func_name(4,3);         /* НЕ ПРАВИЛЬНО */
 ```
 
-- Do not initialize `static` and `global` variables to `0` (or `NULL`), let compiler do it for you
+- Не инициализируейте static и global переменные 0 (или NULL), дайте компилятору сделать это:
 ```c
-static int32_t a;       /* OK */
-static int32_t b = 4;   /* OK */
-static int32_t a = 0;   /* Wrong */
+static int32_t a;       /* ПРАВИЛЬНО */
+static int32_t b = 4;   /* ПРАВИЛЬНО */
+static int32_t a = 0;   /* НЕ ПРАВИЛЬНО */
 
 void
 my_func(void) {
-    static int32_t* ptr;/* OK */
-    static char abc = 0;/* Wrong */
+    static int32_t* ptr;/* ПРАВИЛЬНО */
+    static char abc = 0;/* НЕ ПРАВИЛЬНО */
 }
 ```
 
-- Declare all local variables of the same type in the same line
+- Объявите все локальные переменные одного типа в одной строке:
 ```c
 void
 my_func(void) {
-    char a;             /* OK */
-    char a, b;          /* OK */
-    char b;             /* Wrong, variable with char type already exists */
+    char a;             /* ПРАВИЛЬНО */
+    char a, b;          /* ПРАВИЛЬНО*/
+    char b;             /* НЕ ПРАВИЛЬНО, эта переменная уже существует */
 }
 ```
 
-- Declare local variables in order
-    1. Custom structures and enumerations
-    2. Integer types, wider unsigned type first
-    3. Single/Double floating point
+- Порядок объявления локальных переменных
+    1. Пользовательские структуры и перечисления, указатели
+    2. Сначала типы Integer, unsigned type
+    3. А затем Single/Double floating
 ```c
 int
 my_func(void) {
     /* 1 */
-    my_struct_t my;     /* First custom structures */
-    my_struct_ptr_t* p; /* Pointers too */
+    my_struct_t my;     /* Пользовательская структура */
+    my_struct_ptr_t* p; /* Указатель */
 
     /* 2 */
     uint32_t a;
@@ -134,14 +139,14 @@ my_func(void) {
 }
 ```
 
-- Always declare local variables at the beginning of the block, before first executable statement
+- Всегда объявляйте локальные переменные в начале блока перед первым исполняемым оператором.
 
-- Declare counter variables in `for` loop
+- Всегда объявляйте счётчик в цикле `for`:
 ```c
-/* OK */
+/* ПРАВИЛЬНО  */
 for (size_t i = 0; i < 10; ++i)
 
-/* OK, if you need counter variable later */
+/* ПРАВИЛЬНО, если вам надо использовать счётчик i вне цикла */
 size_t i;
 for (i = 0; i < 10; ++i) {
     if (...) {
@@ -152,35 +157,35 @@ if (i == 10) {
 
 }
 
-/* Wrong */
+/* НЕ ПРАВИЛЬНО, в любом другом случае */
 size_t i;
 for (i = 0; i < 10; ++i) ...
 ```
 
-- Avoid variable assignment with function call in declaration, except for single variables
+- Избегайте присваивания переменной с вызовом функции в объявлении, за исключением одиночных переменных:
 ```c
 void
 a(void) {
-    /* Avoid function calls when declaring variable */
+    /* Избегайте вызовов функций при объявлении переменной */
     int32_t a, b = sum(1, 2);
 
-    /* Use this */
+    /* Можно сделать так */
     int32_t a, b;
     b = sum(1, 2);
 
-    /* This is ok */
+    /* А лучше так */
     uint8_t a = 3, b = 4;
 }
 ```
 
-- Except `char`, `float` or `double`, always use types declared in `stdint.h` library, eg. `uint8_t` for `unsigned 8-bit`, etc.
-- Do not use `stdbool.h` library. Use `1` or `0` for `true` or `false` respectively
+- Кроме `char`, `float` или `double`, всегда используйте типы объявленные в бибилиотеке stdint.h, например `uint8_t` для `unsigned 8-bit` и т.д.
+- Не используйте бибилиотеку `stdbool.h`. Используйте `1` или `0` для `true` и `false`.
 ```c
-/* OK */
+/* ПРАВИЛЬНО */
 uint8_t status;
 status = 0;
 
-/* Wrong */
+/* НЕ ПРАВИЛЬНО */
 #include <stdbool.h>
 bool status = true;
 ```
