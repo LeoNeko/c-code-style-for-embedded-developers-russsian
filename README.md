@@ -15,8 +15,7 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
     - [Switch statement](#switch-statement)
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Документация](#документация)
-  - [Заголовочные/исходного кода файлы](#заголовочныеисходного-кода-файлы)#заголовочныеисходного-кода-файлы
-  - [Заголовочные и исходного кода файлы](#заголовочные-и-исходного-кода-файлы)#заголовочныеисходного-кода-файлы
+  - [Заголовочные и исходного кода файлы](#заголовочные-и-исходного-кода-файлы)
   - [Artistic Style configuration](#artistic-style-configuration)
   - [Eclipse formatter](#eclipse-formatter)
 
