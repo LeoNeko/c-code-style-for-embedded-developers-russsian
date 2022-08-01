@@ -14,8 +14,8 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
   - [Compound statements](#compound-statements)
     - [Switch statement](#switch-statement)
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
-  - [Documentation](#documentation)
-  - [Заголовочные/исходного кода файлы](#заголовочныеисходного-кода-файлы)
+  - [Документация](#документация)
+  - [Заголовочные/исходного кода файлы](#заголовочныеисходного-кода-файлы)#заголовочныеисходного-кода-файлы
   - [Artistic Style configuration](#artistic-style-configuration)
   - [Eclipse formatter](#eclipse-formatter)
 
@@ -948,7 +948,7 @@ if (a) {                    /* If a is true */
 #endif /* !defined(XYZ) */
 ```
 
-## Documentation
+## Документация
 
 Documented code allows doxygen to parse and general html/pdf/latex output, thus it is very important to do it properly.
 
@@ -968,16 +968,16 @@ type_t* list;
 - Use `12x4 spaces` offset for beginning of comment
 ```c
 /**
- * \brief           This is point struct
+ * \brief           Это структура описывающая точку.
  * \note            This structure is used to calculate all point
  *                      related stuff
  */
 typedef struct {
-    int32_t x;                                  /*!< Point X coordinate */
-    int32_t y;                                  /*!< Point Y coordinate */
-    int32_t size;                               /*!< Point size.
-                                                    Since comment is very big,
-                                                    you may go to next line */
+    int32_t x;                                  /*!< X координата точки */
+    int32_t y;                                  /*!< Y координата точки */
+    int32_t size;                               /*!< Размер точки.
+                                                    Если комментарий слишком большой, 
+                                                    вы можете перейти на новую строчку. */
 } point_t;
 
 /**
@@ -991,30 +991,34 @@ typedef enum {
 } point_color_t;
 ```
 
-- Documentation for functions must be written in function implementation (source file usually)
-- Function must include `brief` and all parameters documentation
-- Every parameter must be noted if it is `in` or `out` for *input* and *output* respectively
-- Function must include `return` parameter if it returns something. This does not apply for `void` functions
-- Function can include other doxygen keywords, such as `note` or `warning`
-- Use colon `:` between parameter name and its description
+- Описание функции должно содержать `brief` и все остальные необзодимые ключевые слова документации.
+- Кадый параметр должен быть помечен `in` or `out` для *input* и *output* соответсвенно.
+- Функция обязательно должна иметь описание возвращаемого объекта. Это можно упустить для функций типа `void`.
+- Может содержать дополнительные ключевые слова, такие как `note` или `warning`.
+- Используйте двоеточие `:` между именем параметра и его описанием.
+- ВАЖНО!!! Здесь я предлагаю отойти от обычного объявления и определения функций. Описание самой функции предлагаю делать в `.h` файле. Во-первых, современные IDE позволяют при наведении на функцию увидеть её описание, а во-вторых, это помогает сократить код. При определении функций в `.c` файл может спокойно уйти за несколько сотен или тысяч строк кода. Таким образом нам приходится проматывать огромные полотнища кода туда-сюда. К заголовочникам мы обращаемся реже и они как правило намного компактнее. Поэтому, чтобы сократить количество строк кода и улучшить восприятие больших файлов, лучше использовать данный подход.
 ```c
+/* file.h ... */
 /**
- * \brief           Sum `2` numbers
- * \param[in]       a: First number
- * \param[in]       b: Second number
- * \return          Sum of input values
+ * \brief           Сумма `2` чисел
+ * \param[in]       a: Первое число
+ * \param[in]       b: Второе число
+ * \return          Сумма `2` переданных чисел
  */
-int32_t
-sum(int32_t a, int32_t b) {
+int32_t sum(int32_t a, int32_t b);
+
+
+/* file.c ... */
+int32_t sum(int32_t a, int32_t b) {
     return a + b;
 }
 
 /**
- * \brief           Sum `2` numbers and write it to pointer
- * \note            This function does not return value, it stores it to pointer instead
- * \param[in]       a: First number
- * \param[in]       b: Second number
- * \param[out]      result: Output variable used to save result
+ * \brief           Возвращает сумму 2 чисел через указатель.
+ * \note            Эта функция не возвращает число, она сохраняет его в указатель.
+ * \param[in]       a: Первое число.
+ * \param[in]       b: Второе число.
+ * \param[out]      result: Выходная переменная, которая используется для получения результата из функции.
  */
 void
 void_sum(int32_t a, int32_t b, int32_t* result) {
@@ -1022,19 +1026,19 @@ void_sum(int32_t a, int32_t b, int32_t* result) {
 }
 ```
 
-- If function returns member of enumeration, use `ref` keyword to specify which one
+- Если функция возвращает член перечисления, используйте ключевое слово `ref`, чтобы указать какое из них.
 ```c
 /**
- * \brief           My enumeration
+ * \brief           Мой энумератор.
  */
 typedef enum {
-    MY_ERR,                                     /*!< Error value */
-    MY_OK                                       /*!< OK value */
+    MY_ERR,                                     /*!< Ошибочное значение. */
+    MY_OK                                       /*!< Действующее значение. */
 } my_enum_t;
 
 /**
- * \brief           Check some value
- * \return          \ref MY_OK on success, member of \ref my_enum_t otherwise
+ * \brief           Проверяет какое-нибудь значение.
+ * \return          \ref MY_OK если удачно, иначе \ref my_enum_t
  */
 my_enum_t
 check_value(void) {
@@ -1176,22 +1180,3 @@ int32_t my_variable;        /* Опережедение в исходном фа
 
 #endif /* TEMPLATE_HDR_H */
 ```
-
-## Artistic style configuration
-
-[AStyle](http://astyle.sourceforge.net/) is a great piece of software that can
-help with formatting the code based on input configuration.
-
-This repository contains `astyle-code-format.cfg` file which can be used with `AStyle` software.
-
-```
-astyle --options="astyle-code-format.cfg" "input_path/*.c,*.h" "input_path2/*.c,*.h"
-```
-
-## Eclipse formatter
-
-Repository contains `eclipse-ext-kr-format.xml` file that can be used with
-eclipse-based toolchains to set formatter options.
-
-It is based on K&R formatter with modifications to respect above rules.
-You can import it within eclipse settings, `Preferences -> LANGUAGE -> Code Style -> Formatter` tab.
