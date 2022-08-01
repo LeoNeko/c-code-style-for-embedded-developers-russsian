@@ -8,7 +8,7 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
   - [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
   - [General rules](#general-rules)
   - [Comments](#comments)
-  - [Functions](#functions)
+  - [Функции](#Функции)
   - [Variables](#variables)
   - [Structures, enumerations, typedefs](#structures-enumerations-typedefs)
   - [Compound statements](#compound-statements)
@@ -363,7 +363,7 @@ my_func(void) {
 }
 ```
 
-## Functions
+## Функции
 
 - Every function which may have access from outside its module, must include function *prototype* (or *declaration*)
 - Function name must be lowercase, optionally separated with underscore `_` character
