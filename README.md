@@ -15,7 +15,7 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
     - [Switch statement](#switch-statement)
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Documentation](#documentation)
-  - [Header/source files](#headersource-files)
+  - [Заголовочные/исходного кода файлы](#Заголовочные/исходного кода файлы)
   - [Artistic Style configuration](#artistic-style-configuration)
   - [Eclipse formatter](#eclipse-formatter)
 
@@ -1135,10 +1135,10 @@ extern int32_t my_variable; /* Глобальная переменная, объ
 int32_t my_variable;        /* Опережедение в исходном файле */
 ```
 - Никогда не подключайте `.c` файлы в другие `.c` файлы.
-- `.c` file should first include corresponding `.h` file, later others, unless otherwise explicitly necessary
-- Do not include module private declarations in header file
+- Файл `.c` должен сначала включать соответствующий ему `.h` файл, а затем другие файлы, если иное не сломает вашу программу (старайтесь избегать таких ситуаций изменяя архитектуру программы).
+- Не включайте приватные объявления модуля `static` в заголовочный файл.
 
-- Header file example (no license for sake of an example)
+- Пример заголовочного файла (без лицензии для примера):
 ```c
 /* License comes here */
 #ifndef TEMPLATE_HDR_H
