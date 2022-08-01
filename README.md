@@ -4,9 +4,9 @@
 
 ## Содержание документа
 
-  - [The single most important rule](#the-single-most-important-rule)
+  - [Самое важное правило](#самое-важное-правило)
   - [Recommended C style and coding rules](#recommended-c-style-and-coding-rules)
-  - [General rules](#general-rules)
+  - [Главные правила](#главные-правила)
   - [Comments](#comments)
   - [Функции](#Функции)
   - [Variables](#variables)
@@ -18,24 +18,23 @@
   - [Заголовочные и исходного кода файлы](#заголовочные-и-исходного-кода-файлы)
   - [Стиль наименования файлов](#стиль-наименования-файлов)
 
-## The single most important rule
+## Самое важное правило
 
-Let's start with the quote from [GNOME developer](https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en) site.
+Давайте начнём с цитаты разработчиков с сайта [GNOME developer](https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en).
 
-> The single most important rule when writing code is this: *check the surrounding code and try to imitate it*.
->
-> As a maintainer it is dismaying to receive a patch that is obviously in a different coding style to the surrounding code. This is disrespectful, like someone tromping into a spotlessly-clean house with muddy shoes.
->
-> So, whatever this document recommends, if there is already written code and you are patching it, keep its current style consistent even if it is not your favorite style.
+> Единственное наиболее важное правило при написании кода таково: проверяйте окружающий код и старайтесь подстроиться под него.
+> Мне как сопровождающему неприятно получать патч, явно отличающийся от окружающего кода стилем кодирования. Это неуважение, как если бы кто-то вошел в безупречно чистый дом в грязных ботинках.
+> Итак, кто бы ни рекомендовал этот документ, если код уже написан и вы его исправляете, сохраняйте его текущий стиль, даже если это не ваш любимый стиль.
 
-## General rules
+## Главные правила
 
-Here are listed most obvious and important general rules. Please check them carefully before you continue with other chapters.
+Здесь перечислены наиболее очевидные и важные общие правила. Внимательно прочитайте их, прежде чем переходить к другим главам.
 
-- Use `C99` standard
-- Do not use tabs, use spaces instead
-- Use `4` spaces per indent level
-- Use `1` space between keyword and opening bracket
+- Используй стандарт C99
+- Не используйте табуляции, вместо этого используйте пробелы
+- Используйте 4 пробел на каждый уровень доступа (область видимости)
+- Используйте 1 пробел между ключевым словом и открывающей скобкой
+
 ```c
 /* OK */
 if (condition)
