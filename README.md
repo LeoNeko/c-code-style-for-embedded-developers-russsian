@@ -15,7 +15,7 @@ This document describes C code style used by Tilen MAJERLE in his projects and l
     - [Switch statement](#switch-statement)
   - [Macros and preprocessor directives](#macros-and-preprocessor-directives)
   - [Documentation](#documentation)
-  - [Заголовочные/исходного кода файлы](#заголовочныеисходного-кода-файлы)
+  - [Заголовочные и исходного кода файлы](#заголовочные-и-исходного-кода-файлы)
   - [Artistic Style configuration](#artistic-style-configuration)
   - [Eclipse formatter](#eclipse-formatter)
 
@@ -1067,7 +1067,7 @@ get_data(const void* in) {
 #define MIN(x, y)       ((x) < (y) ? (x) : (y))
 ```
 
-## Заголовочные/исходного кода файлы
+## Заголовочные и исходного кода файлы
 
 - Всегда в начале файла используйте `file` and `brief` для описания самого файла. После описания должна быть одна пустая строка.
 
