@@ -1067,24 +1067,26 @@ get_data(const void* in) {
 #define MIN(x, y)       ((x) < (y) ? (x) : (y))
 ```
 
-## Header/source files
+## Заголовочные/исходного кода файлы
 
-- Leave single empty line at the end of file
-- Every file must include doxygen annotation for `file` and `brief` description followed by empty line (when using doxygen)
+- Всегда в начале файла используйте `file` and `brief` для описания самого файла. После описания должна быть одна пустая строка.
+
 ```c
 /**
  * \file            template.h
- * \brief           Template include file
+ * \brief           Описание файла.
  */
-                    /* Here is empty line */
+                    /* Здесь пустая строка */
 ```
 
-- Every file (*header* or *source*) must include license (opening comment includes single asterisk as this must be ignored by doxygen)
+- Также следует оставлять одну пустую строку в конце файла.
+
+- Каждый файл (*header* or *source*) должен включать лицензию (открывающий комментарий содержит один символ звезды)
 - Use the same license as already used by project/library
 ```c
 /**
  * \file            template.h
- * \brief           Template include file
+ * \brief           Описание файла.
  */
 
 /*
@@ -1116,25 +1118,23 @@ get_data(const void* in) {
  */
 ```
 
-- Header file must include guard `#ifndef`
-- Header file must include `C++` check
-- Include external header files outside `C++` check
-- Include external header files with STL C files first followed by application custom files
-- Header file must include only every other header file in order to compile correctly, but not more (.c should include the rest if required)
-- Header file must only expose module public variables/types/functions
-- Use `extern` for global module variables in header file, define them in source file later
+- Прежде всего файл должен содержать в самом начале `#ifndef`.
+- Внешние заголовочные файлы бибилиотеки STL C всегда должны предшествовать пользовательским заголовочным файлам.
+- Заголовочный файл должен подключать только те заголовочные файлы, которые необходимы для правильной компиляции, но не более того! (на файлы с расширением .c это не распространяется).
+- Заголовочный файл должен содержать только общедоступные переменные/типы/функции модуля. Все вспомогательные функции реализуются в `.c`.
+- Используйте `extern` для глобальных переменных модуля в заголовочном файле, определите их в исходном файле позже. Для инкапсулированных внутри одного файла используйте `static`.
 ```
 /* file.h ... */
 #ifndef ...
 
-extern int32_t my_variable; /* This is global variable declaration in header */
+extern int32_t my_variable; /* Глобальная переменная, объявленная в заголовочном файле */
 
 #endif
 
 /* file.c ... */
-int32_t my_variable;        /* Actually defined in source */
+int32_t my_variable;        /* Опережедение в исходном файле */
 ```
-- Never include `.c` files in another `.c` file
+- Никогда не подключайте `.c` файлы в другие `.c` файлы.
 - `.c` file should first include corresponding `.h` file, later others, unless otherwise explicitly necessary
 - Do not include module private declarations in header file
 
@@ -1144,17 +1144,35 @@ int32_t my_variable;        /* Actually defined in source */
 #ifndef TEMPLATE_HDR_H
 #define TEMPLATE_HDR_H
 
-/* Include headers */
+/*******************************************************************************
+* INCLUDE FILES:
+*******************************************************************************/
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+/* Подключите заголовочные файлы здесь. */
 
-/* File content here */
+/*******************************************************************************
+* CONSTANTS & MACROS:
+*******************************************************************************/
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+/* Определите константы и макросы здесь. */
+
+/*******************************************************************************
+* TYPES:
+*******************************************************************************/
+
+/* Определите пользовательские типы здесь. */
+
+/*******************************************************************************
+* GLOBAL VARIABLES:
+*******************************************************************************/
+
+/* Определите глобальные переменные здесь. */
+
+/*******************************************************************************
+* FUNCTIONS:
+*******************************************************************************/
+
+/* Определите прототипы функций здесь. */
 
 #endif /* TEMPLATE_HDR_H */
 ```
